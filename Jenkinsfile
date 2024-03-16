@@ -1,7 +1,4 @@
 pipeline{
-    agent{
-        label 'aws-agent'
-    }
     stages{
         stage('build'){
             steps{
