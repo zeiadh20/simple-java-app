@@ -41,11 +41,10 @@
 
 // scripted pipeline
 
-node{
-    git branch:'main', url:'https://github.com/zeiadh20/simple-java-app.git'
+node {
+    git branch: 'main', url: 'https://github.com/zeiadh20/simple-java-app.git'
 
-    stage('build'){
-
-        sh'echo"build in progress"'
+    stage('build') {
+        sh 'echo "build in progress"'
     }
 }
