@@ -41,11 +41,21 @@
 
 // scripted pipeline
 
-node {
-    git branch: 'main', url: 'https://github.com/zeiadh20/simple-java-app.git'
+pipeline {
+    agent any
 
-    stage('build') {
-        sh 'echo "build in progress"'
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/zeiadh20/simple-java-app.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh 'echo "build in progress"'
+            }
+        }
     }
 }
 
