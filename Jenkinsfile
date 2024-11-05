@@ -41,35 +41,35 @@
 
 // scripted pipeline
 
-pipeline {
-    agent any
+// pipeline {
+//     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/zeiadh20/simple-java-app.git'
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                sh 'echo "build in progress"'
-            }
-        }
-    }
-}
-
-
-// pipeline{
-//   agent any
-//   stages{
-//     stage('build'){
-//       steps{
-//         script{
-//           echo "build in progress"
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 git branch: 'main', url: 'https://github.com/zeiadh20/simple-java-app.git'
+//             }
 //         }
-//       }
+        
+//         stage('Build') {
+//             steps {
+//                 sh 'echo "build in progress"'
+//             }
+//         }
 //     }
-//   }
 // }
+
+
+pipeline{
+  agent any
+  stages{
+    stage('build'){
+      steps{
+        script{
+          echo "build in progress"
+        }
+      }
+    }
+  }
+}
 
