@@ -41,35 +41,61 @@
 
 // scripted pipeline
 
-// pipeline {
-//     agent any
+pipeline {
+    agent {
+      label 'aws-agent'
+    }
 
-//     stages {
-//         stage('Checkout') {
-//             steps {
-//                 git branch: 'main', url: 'https://github.com/zeiadh20/simple-java-app.git'
-//             }
-//         }
+    stages {
+        stage('build') {
+            steps {
+              sh 'mvn clean package'
+            }
+        }
         
-//         stage('Build') {
-//             steps {
-//                 sh 'echo "build in progress"'
-//             }
+        stage('test') {
+            steps {
+                sh 'echo "test in progress"'
+            }
+        }
+    }
+
+    post {
+        success {
+            slackSend(
+                channel: '#jenkins', 
+                message: "Build Success - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", 
+                teamDomain: 'dolfined', 
+                tokenCredentialId: 'slack-notification'
+            )
+        }
+        failure {
+            slackSend(
+                channel: '#jenkins', 
+                message: "Build Failure - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", 
+                teamDomain: 'dolfined', 
+                tokenCredentialId: 'slack-notification'
+            )
+        }
+    }
+}
+
+
+// pipeline{
+//   agent any
+//   stages{
+//     stage('build'){
+//       steps{
+//         script{
+//           echo "build in progress"
 //         }
+//       }
 //     }
+//   }
 // }
 
 
-pipeline{
-  agent any
-  stages{
-    stage('build'){
-      steps{
-        script{
-          echo "build in progress"
-        }
-      }
-    }
-  }
-}
+
+
+
 
